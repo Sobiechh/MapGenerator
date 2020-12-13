@@ -1,14 +1,18 @@
 import React from 'react';
-import { Canvas, useFrame } from 'react-three-fiber'
+import {Canvas, extend, useFrame} from 'react-three-fiber'
 import Ground from "../components/Ground";
-import Camera from "../components/Camera";
+import CameraControls from "../components/CameraControls"
+
+
+
 export default function Terrain(){
-    return(
+    return(///x,y,z    - z głebia
         <Canvas>
-            <ambientLight />
-            <pointLight position={[0, 0, 0]} />
-            <camera position={[0,50,0]}/>
-            <Ground />
+            <CameraControls />
+            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+            <pointLight position={[-10, -10, -10]} />
+
+            <Ground position={[100, 3, 0]} />
         </Canvas>
     )
 }
