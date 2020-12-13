@@ -1,8 +1,10 @@
 import React from 'react';
+import Terrain from "./Terrain";
+
 
 const home = () => (
     <div className = 'home'>
-        <h1> tu bedzie nasze xtb </h1>
+        <Terrain/>
     </div>
 )
 
