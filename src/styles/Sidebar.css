@@ -3,7 +3,7 @@
     flex-direction: column;
     float: right;
     min-height: 100%;
-    background-color: rgb(252, 11, 91);
+    background-color: rgba(252, 11, 91, 0.568);
     width:20%;
 }
 
@@ -12,7 +12,7 @@
     flex-direction: column;
     float: right;
     min-height: 100%;
-    background-color: rgb(131, 204, 131);
+    background-color: rgba(131, 204, 131, 0.562);
     width:20%;
 }
 
