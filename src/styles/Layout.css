@@ -3,17 +3,11 @@
     height: 100%;
 }
 
-/* html, body, :root {
-    height: 100%;
-} */
-
 .home {
     width: 100%;
 }
 
-.Main 
-{
-    display: flex;
-    flex-direction: row-reverse;
-    height:100%;
+.Main {
+    position: relative;
+    z-index: 10;
 }
