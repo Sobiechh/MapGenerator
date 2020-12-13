@@ -1,0 +1,21 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    float: right;
+    min-height: 100%;
+    background-color: rgb(252, 11, 91);
+    width:20%;
+}
+
+.sidebar_active{
+    display: flex;
+    flex-direction: column;
+    float: right;
+    min-height: 100%;
+    background-color: rgb(131, 204, 131);
+    width:20%;
+}
+
+.nav-item {
+    padding: 40px;
+}
