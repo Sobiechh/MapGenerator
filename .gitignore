@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-node_modules
-=======
 # compiled output
 /dist
 /tmp
@@ -90,4 +87,3 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
->>>>>>> ab3a406af1c080afa03f8c40482b542edf30f239

@@ -1,9 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-<<<<<<< HEAD
-import './index.css';
-=======
->>>>>>> ab3a406af1c080afa03f8c40482b542edf30f239
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
