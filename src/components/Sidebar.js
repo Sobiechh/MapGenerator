@@ -11,7 +11,6 @@ function Sidebar() {
 
     return(
         <>
-            <Nav variant="tabs" defaultActiveKey="/home" className={sidebar ? 'sidebar_hide' : 'sidebar_active'}>
                 <Nav.Item className="hide">
                     <Nav.Link>
                         <p onClick={showSidebar} className="arrowIcon"> 
@@ -21,8 +20,10 @@ function Sidebar() {
                         </p>
                     </Nav.Link>
                 </Nav.Item>
+            <Nav variant="tabs" defaultActiveKey="/home" className={sidebar ? 'sidebar_hide' : 'sidebar_active'}>
                 <Nav.Item>
-                    {sidebar ? 'disactive' : 'active'}
+                    {/* default empty */}
+                    {/* {sidebar ? 'disactive' : 'active'} */}
                 </Nav.Item>
                 <Nav.Item>
                     Item1
@@ -32,6 +33,12 @@ function Sidebar() {
                 </Nav.Item>
                 <Nav.Item>
                     Item3
+                </Nav.Item>
+                <Nav.Item>
+                    Item4
+                </Nav.Item>
+                <Nav.Item>
+                    Item5
                 </Nav.Item>
             </Nav>
         </>

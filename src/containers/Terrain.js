@@ -12,7 +12,7 @@ export default function Terrain(){
             <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
             <pointLight position={[-10, -10, -10]} />
 
-            <Ground position={[100, 3, 0]} />
+            <Ground position={[50, 54, 0]} />
         </Canvas>
     )
 }

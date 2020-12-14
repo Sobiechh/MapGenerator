@@ -1,38 +1,43 @@
 .sidebar_hide {
+    width: 0;
     min-height: 100%;
     background-color: rgba(252, 11, 91, 0);
 }
 
 .sidebar_active {
+    width: 200px;
     min-height: 100%;
     background-color: rgba(131, 204, 131, 0.596);
 }
 
-.sidebar_hide .nav-item {
-    display: none;
-}
-
-.sidebar_hide .hide {
-    display: block;
+.hide {
+    position: fixed;
+    justify-content: center;
+    right: 40px;
+    z-index: 10;
 }
 
 .nav-item {
-    padding: 40px;
+    padding: 20px;
+    display: block;
     justify-content: center;
     margin: 0 auto;
 }
 
-.nav {
+.nav{
+    transition: 3.5s;
+    overflow-x: hidden;
     z-index: 1;
     position: absolute;
     right: 0px;
     display: flex;
     flex-direction: column;
-    width: 200px;
 }
 
 .arrowIcon {
     position: absolute;
-    height: 20px;
-    width: 20px;
+    display: block;
+    height: 50px;
+    width: 50px;
+    color: rgba(4, 7, 4, 0.562);
 }
