@@ -10,7 +10,7 @@ export default function Ground() {
     return (
         <mesh
             ref={mesh}>
-            <planeBufferGeometry args={[10, 10, 1]}  />
+            <planeBufferGeometry args={[70, 70, 1]}  />
             <meshPhongMaterial attach="material" color={0xf95b3c}/>
         </mesh>
     )
