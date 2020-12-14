@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
-import {Canvas, useFrame} from 'react-three-fiber'
+import { useFrame} from 'react-three-fiber'
+
 
 export default function Ground({worldWidth,worldDepth,worldSize}) {
     const mesh = useRef()
 
     useFrame(() => {
-
     })
     return (
         <mesh
