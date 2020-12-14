@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-three/drei": "^2.2.12",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.3.0",
+    "cannon": "^0.6.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-sidebar": "0.0.1",
@@ -15,6 +17,7 @@
     "react-scripts": "4.0.1",
     "react-three-fiber": "^5.3.10",
     "three": "^0.123.0",
+    "use-cannon": "^0.5.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
