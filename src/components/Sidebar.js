@@ -4,6 +4,9 @@ import '../styles/Sidebar.css';
 import {FaArrowCircleRight, FaArrowCircleLeft} from 'react-icons/fa';
 import {IconContext} from "react-icons";
 
+// material-ui
+import Slider from '@material-ui/core/Slider';
+
 function Sidebar() {
     const [sidebar, setSidebar] = useState(false);
 
@@ -26,7 +29,13 @@ function Sidebar() {
                     {/* {sidebar ? 'disactive' : 'active'} */}
                 </Nav.Item>
                 <Nav.Item>
-                    Item1
+                    <>
+                    <Slider
+                        
+                        aria-label="custom thumb label"
+                        defaultValue={20}
+                    />
+                    </>
                 </Nav.Item>
                 <Nav.Item>
                     Item2

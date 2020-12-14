@@ -39,5 +39,13 @@
     display: block;
     height: 50px;
     width: 50px;
-    color: rgba(4, 7, 4, 0.562);
+    color: rgba(37, 56, 41, 0.219);
+}
+
+.arrowIcon:hover {
+    position: absolute;
+    display: block;
+    height: 50px;
+    width: 50px;
+    color: rgba(48, 167, 48, 0.562);
 }
