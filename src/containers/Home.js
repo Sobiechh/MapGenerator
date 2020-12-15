@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Terrain from "./Terrain";
+import Sidebar from '../components/Sidebar';
 
+function Home() {
+    const [ xValue ] = useState(0);
 
-const home = () => (
-    <div className = 'home'>
-        <Terrain/>
-    </div>
-)
+    return (
+        <div className = 'home'>
+            <Sidebar name={xValue}/>
+            <Terrain/>
+        </div>
+    );
+}
 
-export default home;
+export default Home;

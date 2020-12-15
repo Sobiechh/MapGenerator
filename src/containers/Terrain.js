@@ -1,5 +1,5 @@
 import React from 'react';
-import {Canvas, extend, useFrame} from 'react-three-fiber'
+import {Canvas} from 'react-three-fiber'
 import Ground from "../components/Ground";
 import CameraControls from "../components/CameraControls"
 

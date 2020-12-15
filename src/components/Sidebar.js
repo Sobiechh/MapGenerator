@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import {Nav} from 'react-bootstrap';
 import '../styles/Sidebar.css';
 import {FaArrowCircleRight, FaArrowCircleLeft} from 'react-icons/fa';
@@ -9,13 +9,12 @@ import RangeSlider from 'react-bootstrap-range-slider';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 
-function Sidebar() {
+function Sidebar(props) {
     const [sidebar, setSidebar] = useState(false);
-    const [ xValue, setValueX ] = useState(0);
+    const [ xValue, setValueX ] = useState(props.name);
     const [ yValue, setValueY ] = useState(0);
 
     const showSidebar = () => setSidebar(!sidebar);
-    const showCords = () => {return xValue};
 
     return(
         <Fragment>
@@ -42,9 +41,9 @@ function Sidebar() {
                     />
                 </Nav.Item>
                 <Nav.Item>
-                    <button onClick={showCords}>
-                        clicke me
-                    </button>
+                    {/* <button onClick={yValue}>
+                        hehe
+                    </button> */}
                 </Nav.Item>
             </Nav>
         </Fragment>
