@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import {Nav} from 'react-bootstrap';
 import '../styles/Sidebar.css';
 import {FaArrowCircleRight, FaArrowCircleLeft} from 'react-icons/fa';
@@ -9,10 +9,8 @@ import RangeSlider from 'react-bootstrap-range-slider';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 
-function Sidebar(props) {
+function Sidebar({x, setX, y, setY}) {
     const [sidebar, setSidebar] = useState(false);
-    const [ xValue, setValueX ] = useState(props.name);
-    const [ yValue, setValueY ] = useState(0);
 
     const showSidebar = () => setSidebar(!sidebar);
 
@@ -27,16 +25,16 @@ function Sidebar(props) {
                 <Nav.Item className="sliderDiv">
                     <h3> Długość x </h3>
                     <RangeSlider
-                        value={xValue}
-                        onChange={changeEvent => setValueX(changeEvent.target.value)}
+                        value={x}
+                        onChange={changeEvent => setX(changeEvent.target.value)}
                         tooltipPlacement="top"
                     />
                 </Nav.Item>
                 <Nav.Item className="sliderDiv">
                     <h3> Długość y </h3>
                     <RangeSlider
-                        value={yValue}
-                        onChange={changeEvent => setValueY(changeEvent.target.value)}
+                        value={y}
+                        onChange={changeEvent => setY(changeEvent.target.value)}
                         tooltipPlacement="top"
                     />
                 </Nav.Item>

@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Terrain from "./Terrain";
 import Sidebar from '../components/Sidebar';
 
 function Home() {
-    const [ xValue ] = useState(0);
+    const [x, setX ] = useState(0);
+    const [y, setY ] = useState(0);
 
     return (
         <div className = 'home'>
-            <Sidebar name={xValue}/>
-            <Terrain/>
+            <Sidebar x={x} setX={setX} y={y} setY={setY} />
+            <Terrain x={x} y={y}/>
         </div>
     );
 }
