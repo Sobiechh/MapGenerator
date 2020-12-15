@@ -9,9 +9,10 @@ import {Physics} from "use-cannon"
 
 
 export default function Terrain(){
-    var worldSize=500
-    var worldDepth=1024
-    var worldWidth=1024
+    var worldSize=100
+    //512
+    var worldDepth=30
+    var worldWidth=30
 
     return(///x,y,z    - z głebia
         <Canvas>

@@ -15,10 +15,6 @@ export default function Ground({worldWidth, worldDepth, worldSize}) {
 
     const mesh = useUpdate(({geometry}) => {
         generateTerrain(geometry)
-        let position = geometry.getAttribute("position")
-
-
-        position.needsUpdate = true
     })
     const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0]}))
 
@@ -28,7 +24,7 @@ export default function Ground({worldWidth, worldDepth, worldSize}) {
     return (
         <mesh rotation={[-Math.PI / 2, 0, 0]}
               ref={mesh}>
-            <planeBufferGeometry attach="geometry" args={[worldSize, worldSize, worldWidth - 1, worldDepth - 1]}/>
+            <bufferGeometry attach="geometry" args={[worldSize, worldSize, worldWidth - 1, worldDepth - 1]}/>
             <meshPhongMaterial
                 attach="material"
                 color={"hotpink"}

@@ -1,24 +1,36 @@
 import {noise} from "./perlin";
+import generate from "./erosion"
 
+export function generateTerrain(geometry, width, height) {
+    // let position = geometry.getAttribute("position")
+    // let vertices = position.array
+    // console.log("original:",vertices)
+     generate(geometry)
+    // const hVerts = geometry.parameters.heightSegments + 1;
+    // const wVerts = geometry.parameters.widthSegments + 1;
+    // for (let j = 0; j < hVerts; j++) {
+    //     for (let i = 0; i < wVerts; i++) {
+    //
+    //
+    //
+    //         const ex = 1.5; //uwaga ostroznie
+    //
+    //         vertices[3 * (j * wVerts + i) + 2] =
+    //             (noise.simplex2(i / 100, j / 100) +
+    //                 noise.simplex2((i + 200) / 50, j / 50) * Math.pow(ex, 1) +
+    //                 noise.simplex2((i + 400) / 25, j / 25) * Math.pow(ex, 2) +
+    //                 noise.simplex2((i + 600) / 12.5, j / 12.5) * Math.pow(ex, 3) +
+    //                 +(noise.simplex2((i + 800) / 6.25, j / 6.25) * Math.pow(ex, 4))) /
+    //             2;
+    //     }
+    // }
 
-export  function generateTerrain(  geometry,width,height ) {
-    let position = geometry.getAttribute("position")
-    let vertices = position.array
-    const hVerts = geometry.parameters.heightSegments + 1;
-    const wVerts = geometry.parameters.widthSegments + 1;
-    for (let j = 0; j < hVerts; j++) {
-        for (let i = 0; i < wVerts; i++) {
-            const ex = 1.3; //uwaga ostroznie
-            vertices[3 * (j * wVerts + i) + 2] =
-                (noise.simplex2(i / 100, j / 100) +
-                    noise.simplex2((i + 200) / 50, j / 50) * Math.pow(ex, 1) +
-                    noise.simplex2((i + 400) / 25, j / 25) * Math.pow(ex, 2) +
-                    noise.simplex2((i + 600) / 12.5, j / 12.5) * Math.pow(ex, 3) +
-                    +(noise.simplex2((i + 800) / 6.25, j / 6.25) * Math.pow(ex, 4))) /
-                2;
-        }
-    }
+}
 
+function noiseFlat(hVert, wVert) {
+    const ex = 1.5;
+    return (noise.simplex2(hVert / 100, wVert / 100) +
+        noise.simplex2((hVert + 200) / 50, wVert / 50) * Math.pow(ex, 1))
 }
 
 // export  function generateTexture( data, width, height ) {
