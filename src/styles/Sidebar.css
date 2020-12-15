@@ -7,21 +7,23 @@
 .sidebar_active {
     width: 200px;
     min-height: 100%;
-    background-color: rgba(131, 204, 131, 0.596);
+    background-color: rgba(119, 119, 119, 0.226);
 }
 
 .hide {
     position: fixed;
     justify-content: center;
-    right: 40px;
+    right: 60px;
     z-index: 10;
 }
 
 .nav-item {
-    padding: 20px;
-    display: block;
+    padding: 5px;
     justify-content: center;
+    align-content: center;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .nav{
@@ -35,6 +37,8 @@
 }
 
 .arrowIcon {
+    z-index: 10;
+    right: 0px;
     position: absolute;
     display: block;
     height: 50px;
@@ -48,4 +52,14 @@
     height: 50px;
     width: 50px;
     color: rgba(48, 167, 48, 0.562);
+}
+
+.sliderDiv h3 {
+    height: 15%;
+}
+
+h3 {
+    font-weight: 40px;
+    font-size: 20px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }

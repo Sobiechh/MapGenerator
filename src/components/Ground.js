@@ -18,6 +18,8 @@ export default function Ground({worldWidth, worldDepth, worldSize}) {
     })
     const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0]}))
 
+export default function Ground({position, data}) {
+    const mesh = useRef()
 
     useFrame(() => {
     })
@@ -32,7 +34,6 @@ export default function Ground({worldWidth, worldDepth, worldSize}) {
                 shininess={3}
                 flatShading
             />
-
         </mesh>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Canvas, extend, useFrame} from 'react-three-fiber'
+import {Canvas} from 'react-three-fiber'
 import Ground from "../components/Ground";
 import Box from "../components/Box";
 import CameraControls from "../components/CameraControls"
@@ -8,7 +8,7 @@ import {Physics} from "use-cannon"
 
 
 
-export default function Terrain(){
+export default function Terrain({x, y}){
     var worldSize=100
     //512
     var worldDepth=30
@@ -34,9 +34,6 @@ export default function Terrain(){
                 <Box />
                 <Ground worldSize={worldSize} worldDepth={worldDepth} worldWidth={worldWidth} />
             </Physics>
-            
-
-
         </Canvas>
     )
 }
