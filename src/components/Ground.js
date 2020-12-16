@@ -2,6 +2,8 @@ import React, {useRef} from 'react';
 import { useFrame} from 'react-three-fiber'
 
 
+export default function Ground({position, data}){
+    const mesh = useRef()
 
     useFrame(() => {
     })
