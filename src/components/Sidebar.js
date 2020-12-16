@@ -1,40 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import {Nav} from 'react-bootstrap';
 import '../styles/Sidebar.css';
 import {FaArrowCircleRight, FaArrowCircleLeft} from 'react-icons/fa';
 import {IconContext} from "react-icons";
 
-function Sidebar() {
+//range slider
+import RangeSlider from 'react-bootstrap-range-slider';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+
+
+function Sidebar({x, setX, y, setY}) {
     const [sidebar, setSidebar] = useState(false);
 
     const showSidebar = () => setSidebar(!sidebar);
 
     return(
-        <>
-            <Nav variant="tabs" defaultActiveKey="/home" className={sidebar ? 'sidebar_hide' : 'sidebar_active'}>
-                <Nav.Item className="hide">
-                    <Nav.Link>
-                        <p onClick={showSidebar} className="arrowIcon"> 
-                        <IconContext.Provider value={{ className: 'arrowIcon'}}>
-                            {sidebar ? <FaArrowCircleLeft/>  : <FaArrowCircleRight/>}
-                        </IconContext.Provider>
-                        </p>
-                    </Nav.Link>
+        <Fragment>
+                <p onClick={showSidebar} className="arrowIcon"> 
+                <IconContext.Provider value={{ className: 'arrowIcon'}}>
+                    {sidebar ? <FaArrowCircleLeft/>  : <FaArrowCircleRight/>}
+                </IconContext.Provider>
+                </p>
+            <Nav defaultActiveKey="/home" className={sidebar ? ['sidebar_hide','flex-column'] : ['sidebar_active','flex-column']}>
+                <Nav.Item className="sliderDiv">
+                    <h3> Długość x </h3>
+                    <RangeSlider
+                        value={x}
+                        onChange={changeEvent => setX(changeEvent.target.value)}
+                        tooltipPlacement="top"
+                    />
+                </Nav.Item>
+                <Nav.Item className="sliderDiv">
+                    <h3> Długość y </h3>
+                    <RangeSlider
+                        value={y}
+                        onChange={changeEvent => setY(changeEvent.target.value)}
+                        tooltipPlacement="top"
+                    />
                 </Nav.Item>
                 <Nav.Item>
-                    {sidebar ? 'disactive' : 'active'}
-                </Nav.Item>
-                <Nav.Item>
-                    Item1
-                </Nav.Item>
-                <Nav.Item>
-                    Item2
-                </Nav.Item>
-                <Nav.Item>
-                    Item3
+                    {/* <button onClick={yValue}>
+                        hehe
+                    </button> */}
                 </Nav.Item>
             </Nav>
-        </>
+        </Fragment>
     )
 }
 

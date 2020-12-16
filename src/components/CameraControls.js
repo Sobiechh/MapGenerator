@@ -1,6 +1,6 @@
 
 import {extend, useFrame, useThree} from "react-three-fiber";
-import React, { Suspense, useRef } from "react";
+import React, { useRef } from "react";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 
