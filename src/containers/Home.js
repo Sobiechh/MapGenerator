@@ -3,8 +3,8 @@ import Terrain from "./Terrain";
 import Sidebar from '../components/Sidebar';
 
 function Home() {
-    const [x, setX ] = useState(0);
-    const [y, setY ] = useState(0);
+    const [x, setX ] = useState(30);
+    const [y, setY ] = useState(30);
 
     return (
         <div className = 'home'>

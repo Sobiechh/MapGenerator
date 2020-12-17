@@ -9,29 +9,24 @@ import {Physics} from "use-cannon"
 
 
 export default function Terrain({x, y}){
-    var worldSize=100
+    var worldSize=x
     //512
-    var worldDepth=30
-    var worldWidth=30
+    var worldDepth=20
+    var worldWidth=y
 
     return(///x,y,z    - z głebia
         <Canvas>
             <CameraControls />
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+            {/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} /> */}
             <pointLight
-                intensity={1.9}
-                position={[-6, 3, -6]}
-                color={0xffcc77}
-            />
-            <pointLight
-                intensity={1.9}
-                position={[6, 3, 6]}
+                intensity={1.3}
+                position={[-100, 60, -60]}
                 color={0xffcc77}
             />
             <Stars />
             <ambientLight intensity={0.1}/>
             <Physics>
-                <Box />
+                {/* <Box /> */}
                 <Ground worldSize={worldSize} worldDepth={worldDepth} worldWidth={worldWidth} />
             </Physics>
         </Canvas>
