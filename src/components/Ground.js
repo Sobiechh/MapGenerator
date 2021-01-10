@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
 import {useFrame, useUpdate} from 'react-three-fiber'
 import {usePlane} from "use-cannon"
-import { generateTerrain} from "../services/TerrainGeneration";
+import { generateTerrain} from "../lib/terrainGeneration";
 import {CanvasTexture, ClampToEdgeWrapping} from "three";
-import {noise} from "../services/perlin"
+import {noise} from "../lib/perlin"
 
-export default function Ground({worldWidth, worldDepth, worldSize}) {
+export default function Ground({ pointsSize,iterations,scaleMultiplier,erosionMultiplier,depositionMultiplier,evaporationMultiplier,worldSizeScale}) {
 
     // let data = generateHeight(worldWidth, worldDepth);
     //
@@ -14,17 +14,20 @@ export default function Ground({worldWidth, worldDepth, worldSize}) {
     // texture.wrapT = ClampToEdgeWrapping;
 
     const mesh = useUpdate(({geometry}) => {
-        generateTerrain(geometry)
+        generateTerrain(geometry,pointsSize,iterations,scaleMultiplier,erosionMultiplier,depositionMultiplier,evaporationMultiplier)
+        saveGeometry(geometry)
     })
-    const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0]}))
+    const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0],}))
 
 
     useFrame(() => {
+
     })
+
     return (
         <mesh rotation={[-Math.PI / 2, 0, 0]}
-              ref={mesh}>
-            <bufferGeometry attach="geometry" args={[worldSize, worldSize, worldWidth - 1, worldDepth - 1]}/>
+              ref={mesh} scale={[worldSizeScale,worldSizeScale,worldSizeScale]} >
+            <bufferGeometry  />
             <meshPhongMaterial
                 attach="material"
                 color={"hotpink"}
@@ -35,4 +38,8 @@ export default function Ground({worldWidth, worldDepth, worldSize}) {
 
         </mesh>
     )
+}
+
+function saveGeometry(geometry){
+    localStorage.setItem("geometry",geometry.toJSON());
 }
