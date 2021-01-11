@@ -1,9 +1,12 @@
 import {noise} from "./perlin";
 import generate from "./erosion"
+import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
+
 
 export function generateTerrain(geometry,pointsSize, iterations,scaleMultiplier,erosionMultiplier,depositionMultiplier,evaporationMultiplier) {
 
-     generate(geometry,pointsSize,iterations,scaleMultiplier,erosionMultiplier,depositionMultiplier,evaporationMultiplier)
+     return generate(geometry,pointsSize,iterations,scaleMultiplier,erosionMultiplier,depositionMultiplier,evaporationMultiplier)
+
 
 
 }

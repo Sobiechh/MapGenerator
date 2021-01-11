@@ -42,6 +42,7 @@ export default function generate(geometry,pointsSize,iterations,scaleMultiplier,
     // geometry.setDrawRange(0,100)
 
 
+
     // console.log(vertices.length, normals.length);
     // console.log(vertices)
 
