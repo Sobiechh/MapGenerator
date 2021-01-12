@@ -8,10 +8,10 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.3.0",
-    "bootstrap": "^4.5.3",
     "cannon": "^0.6.2",
-    "react": "^17.0.1",
-    "react-bootstrap": "^1.4.0",
+    "bootstrap": "^4.5.3",
+    "react": "17.0.1",
+    "react-bootstrap": "^1.4.3",
     "react-bootstrap-range-slider": "^2.0.2",
     "react-bootstrap-sidebar": "0.0.1",
     "react-dom": "^17.0.1",
@@ -47,5 +47,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

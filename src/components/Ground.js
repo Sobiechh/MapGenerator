@@ -1,50 +1,69 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {useFrame, useUpdate} from 'react-three-fiber'
 import {usePlane} from "use-cannon"
-import { generateTerrain} from "../services/TerrainGeneration";
+import {generateTerrain} from "../lib/terrainGeneration";
 import {CanvasTexture, ClampToEdgeWrapping} from "three";
-import {noise} from "../services/perlin"
-
-export default function Ground({worldWidth, worldDepth, worldSize}) {
-
-    const mesh = useUpdate(({ geometry }) => {
-        noise.seed(Math.random());
-        let pos = geometry.getAttribute("position");
-        let pa = pos.array;
-        const hVerts = geometry.parameters.heightSegments + 1;
-        const wVerts = geometry.parameters.widthSegments + 1;
-        for (let j = 0; j < hVerts; j++) {
-          for (let i = 0; i < wVerts; i++) {
-            const ex = 1.4;
-            pa[3 * (j * wVerts + i) + 2] =
-              (noise.simplex2(i / 10, j / 100) +
-                noise.simplex2((i + 20) / 50, j / 30) * Math.pow(ex, 2) +
-                noise.simplex2((i + 40) / 25, j / 25) * Math.pow(ex, 2) +
-                noise.simplex2((i + 600) / 12.5, j / 12.5) * Math.pow(ex, 5) +
-                +(noise.simplex2((i + 800) / 6.25, j / 6.25) * Math.pow(ex, 10))) / 2;
-          }
-        }
-    
-        pos.needsUpdate = true;
-      });
+import {noise} from "../lib/perlin"
+import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
+import generate from "../lib/erosion";
 
 
-    // const mesh = useUpdate(({geometry}) => {
-    //     generateTerrain(geometry)
-    // })
-
-    // const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0]}))
 
 
-    // const mesh = useRef()
+function exportToJson(objectData) {
+    let filename = "export.json";
+    let contentType = "application/json;charset=utf-8;";
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(objectData)))], { type: contentType });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+        var a = document.createElement('a');
+        a.download = filename;
+        a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(objectData));
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+}
+
+export default function Ground({
+                                   pointsSize,
+                                   iterations,
+                                   scaleMultiplier,
+                                   erosionMultiplier,
+                                   depositionMultiplier,
+                                   evaporationMultiplier,
+                                   worldSizeScale
+                               }) {
+
+    // let data = generateHeight(worldWidth, worldDepth);
+    //
+    // let texture = new CanvasTexture(generateTexture(data, worldWidth, worldDepth));
+    // texture.wrapS = ClampToEdgeWrapping;
+    // texture.wrapT = ClampToEdgeWrapping;
+
+    const mesh = useUpdate(({geometry}) => {
+        generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier)
+
+
+        var data=geometry.toJSON()
+        console.log(data)
+        console.log(typeof(data))
+        exportToJson(data)
+
+
+    }, [])
+    const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0],}))
 
     useFrame(() => {
+
     })
+
     return (
         <mesh rotation={[-Math.PI / 2, 0, 0]}
-              ref={mesh}>
-
-            <planeBufferGeometry attach="geometry" args={[worldSize, worldSize, worldWidth - 1, worldDepth - 1]}/>
+              ref={mesh} scale={[worldSizeScale, worldSizeScale, worldSizeScale]}>
+            <bufferGeometry/>
             <meshPhongMaterial
                 attach="material"
                 color={"hotpink"}
@@ -52,6 +71,8 @@ export default function Ground({worldWidth, worldDepth, worldSize}) {
                 shininess={3}
                 flatShading
             />
+
         </mesh>
     )
 }
+

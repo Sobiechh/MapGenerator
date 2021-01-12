@@ -1,12 +1,12 @@
 import {noise} from "./perlin"
 import calculateNormals from "./normals"
 import {BufferAttribute} from "three";
-export default function generate(geometry){
+export default function generate(geometry,pointsSize,iterations,scaleMultiplier,erosionMultiplier,depositionMultiplier,evaporationMultiplier){
     noise.seed(Math.random())
 
 
 
-    var size = 512;
+    var size = pointsSize
     var points = [];
 
     for(var x = 0; x < size; x++){
@@ -30,7 +30,7 @@ export default function generate(geometry){
         }
     }
 
-    points = erode(points, size);
+    points = erode(points, size,iterations,scaleMultiplier,erosionMultiplier,depositionMultiplier,evaporationMultiplier);
 
     let vertices = buildMeshFromPoints(points, size);
     let normals = calculateNormals(vertices, points, size);
@@ -42,19 +42,20 @@ export default function generate(geometry){
     // geometry.setDrawRange(0,100)
 
 
+
     // console.log(vertices.length, normals.length);
     // console.log(vertices)
 
 }
 
-function erode(points, size){
+function erode(points, size,iterations,scaleMultiplier,erosionMultiplier,depositionMultiplier,evaporationMultiplier){
 
-    var scale = size/512;
+    var scale = size/512 * scaleMultiplier;
 
-    var erosion = 0.0005*scale;
-    var deposition = 0.0000002*scale;
-    var evaporation = 0.9;
-    var iterations = 300;
+    var erosion = 0.0005*scale * erosionMultiplier;
+    var deposition = 0.0000002*scale * depositionMultiplier;
+    var evaporation = 0.9 * evaporationMultiplier;
+
     var steepness;
     var down;
     var water;
