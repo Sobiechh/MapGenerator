@@ -2,30 +2,8 @@ import React, {useRef, useState} from 'react';
 import {useFrame, useUpdate} from 'react-three-fiber'
 import {usePlane} from "use-cannon"
 import {generateTerrain} from "../lib/terrainGeneration";
-import {CanvasTexture, ClampToEdgeWrapping} from "three";
-import {noise} from "../lib/perlin"
-import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
-import generate from "../lib/erosion";
+import {BufferGeometryLoader} from "three";
 
-
-
-
-function exportToJson(objectData) {
-    let filename = "export.json";
-    let contentType = "application/json;charset=utf-8;";
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(objectData)))], { type: contentType });
-        navigator.msSaveOrOpenBlob(blob, filename);
-    } else {
-        var a = document.createElement('a');
-        a.download = filename;
-        a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(objectData));
-        a.target = '_blank';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
-}
 
 export default function Ground({
                                    pointsSize,
@@ -43,14 +21,29 @@ export default function Ground({
     // texture.wrapS = ClampToEdgeWrapping;
     // texture.wrapT = ClampToEdgeWrapping;
 
+
     const mesh = useUpdate(({geometry}) => {
-        generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier)
 
+        const loader = new BufferGeometryLoader();
 
-        var data=geometry.toJSON()
-        console.log(data)
-        console.log(typeof(data))
-        exportToJson(data)
+// load a resource
+        let loadedGeometry = loader.load(
+            '../data/defaultGeometry.json',
+            function (geometry) {
+                return geometry;
+            },
+            function (xhr) {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            function (err) {
+                console.log('An error happened');
+            }
+        );
+        if (loadedGeometry == null) {
+            generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier)
+        } else {
+            geometry = loadedGeometry
+        }
 
 
     }, [])
