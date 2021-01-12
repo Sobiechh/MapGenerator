@@ -45,16 +45,16 @@ export default function Ground({
             geometry = loadedGeometry
         }
 
+        geometry.rotateX(Math.PI)
+
 
     }, [])
-    const [ref] = usePlane(() => ({rotation: [-Math.PI / 2, 0, 0],}))
 
-    useFrame(() => {
 
-    })
+
 
     return (
-        <mesh rotation={[-Math.PI / 2, 0, 0]}
+        <mesh
               ref={mesh} scale={[worldSizeScale, worldSizeScale, worldSizeScale]}>
             <bufferGeometry/>
             <meshPhongMaterial
