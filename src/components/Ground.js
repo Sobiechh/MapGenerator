@@ -28,7 +28,7 @@ export default function Ground({
 
 // load a resource
         let loadedGeometry = loader.load(
-            '../data/defaultGeometry.json',
+            '../data/defaultGeometry2.json',
             function (geometry) {
                 return geometry;
             },
@@ -45,24 +45,20 @@ export default function Ground({
             geometry = loadedGeometry
         }
 
-        geometry.rotateX(Math.PI)
 
-
+        geometry.attributes.color.needsUpdate = true
+        geometry.needsUpdate = true
     }, [])
-
-
 
 
     return (
         <mesh
-              ref={mesh} scale={[worldSizeScale, worldSizeScale, worldSizeScale]}>
+            ref={mesh} scale={[worldSizeScale, worldSizeScale, worldSizeScale]}>
             <bufferGeometry/>
             <meshPhongMaterial
-                attach="material"
-                color={"hotpink"}
-                specular={"hotpink"}
-                shininess={3}
-                flatShading
+                wireframe={false}
+                vertexColors={true}
+
             />
 
         </mesh>
