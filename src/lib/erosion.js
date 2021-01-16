@@ -92,18 +92,30 @@ function colorVertices(vertices) {
         return array
     }
 
-    function getMinY() {
-        return Math.min(...getYs());
+    function getMax(arr) {
+        let len = arr.length;
+        let max = -2;
+
+        while (len--) {
+            max = arr[len] > max ? arr[len] : max;
+        }
+        return max;
+    }
+    function getMin(arr) {
+        let len = arr.length;
+        let min = 2;
+
+        while (len--) {
+            min = arr[len] < min ? arr[len] : min;
+        }
+        return min;
     }
 
-    function getMaxY() {
-        return Math.max(...getYs());
-    }
 
     let colors = new Float32Array(vertices.length);
-
-    let minHeight = getMinY()
-    let maxHeight = getMaxY()
+    let heightArray=getYs()
+    let minHeight = getMin(heightArray)
+    let maxHeight = getMax(heightArray)
     let heightDiff = Math.abs(maxHeight - minHeight)
 
     let waterHeight = minHeight + heightDiff * 0.2

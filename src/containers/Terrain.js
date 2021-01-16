@@ -8,8 +8,8 @@ import {Physics} from "use-cannon"
 
 
 export default function Terrain() {
-    var pointsSize = 512 / 8;//256 // wielkość mapy przed skalowaniem jej ( czyli tak jakby jakość erozji)
-    var iterations = 30; //300 ilość iteracji erozji
+    var pointsSize = 512 / 2;//256 // wielkość mapy przed skalowaniem jej ( czyli tak jakby jakość erozji)
+    var iterations = 300; //300 ilość iteracji erozji
     var scaleMultiplier = 1;       // wszystkie multiplier - domyślnie 1 - przedziały od 1 do powiedzmy 10 w sliderach ale w sumie 10 to przesada
     var erosionMultiplier = 1;
     var depositionMultiplier = 1;
