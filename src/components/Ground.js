@@ -58,7 +58,7 @@ export default function Ground({
             <meshPhongMaterial
                 wireframe={false}
                 vertexColors={true}
-
+                flatShading={true}
             />
 
         </mesh>

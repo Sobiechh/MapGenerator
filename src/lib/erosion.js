@@ -6,14 +6,14 @@ export default function generate(geometry, pointsSize, iterations, scaleMultipli
     noise.seed(Math.random())
 
 
-    var size = pointsSize
-    var points = [];
+    let size = pointsSize
+    let points = [];
 
-    for (var x = 0; x < size; x++) {
+    for (let x = 0; x < size; x++) {
 
         points[x] = [];
 
-        for (var y = 0; y < size; y++) {
+        for (let y = 0; y < size; y++) {
 
             points[x][y] = {
                 x: (x / size) * 2 - 1
@@ -34,109 +34,105 @@ export default function generate(geometry, pointsSize, iterations, scaleMultipli
 
     let vertices = buildMeshFromPoints(points, size);
     let normals = calculateNormals(vertices, points, size);
-    let colors = colorTerrain(points, size);
+    let colors = colorVertices(vertices);
 
     geometry.attributes.position = new BufferAttribute(vertices, 3);
     geometry.attributes.normal = new BufferAttribute(normals, 3);
     geometry.attributes.color = new BufferAttribute(colors, 3);
 
-    // geometry.setDrawRange(0,100)
-
-
-    // console.log(vertices.length, normals.length);
-    // console.log(vertices)
 
 }
 
-
-
-
-function colorTerrain(points, size) {
-
+function colorVertices(vertices) {
     function getColorForHeight(h) {
-        let height=h * -1
+        let height = h
 
         if (height < waterHeight) {
+
             return {
                 r: 0.01,
                 g: 0.01,
                 b: 0.90
             }
-        }else if (height < mountainHeight) {
+        } else if (height < grassHeight) {
             return {
-                r: 0.01,
+                r: 0.1,
                 g: 0.90,
-                b: 0.01
-            }}
-        else {
+                b: 0.1
+            }
+        } else if (height < mountainHeight) {
+            return {
+                r: 0.4,
+                g: 0.2,
+                b: 0.2
+            }
+        } else {
             return {
                 r: 0.90,
-                g: 0.00,
-                b: 0.00
+                g: 0.90,
+                b: 0.90
             }
         }
 
     }
 
-    function getYs(){
-        return points.flat().map(d => d.z);
+    function getYs() {
+        let array = []
+        vertices.forEach(function (item, index) {
+            if (index === 0) {
+                return
+            }
+            if (index % 3 === 0) {
+
+                array.push(vertices[index - 2])
+            }
+
+        })
+        console.log(array)
+        return array
     }
-    function getMinY(){
+
+    function getMinY() {
         return Math.min(...getYs());
     }
-    function getMaxY(){
+
+    function getMaxY() {
         return Math.max(...getYs());
     }
 
-    let colors = new Float32Array(Math.pow(size - 1, 2) * 18);
+    let colors = new Float32Array(vertices.length);
 
-    let minHeight=getMinY()
-    let maxHeight=getMaxY()
-    let heightDiff=Math.abs(maxHeight-minHeight)
+    let minHeight = getMinY()
+    let maxHeight = getMaxY()
+    let heightDiff = Math.abs(maxHeight - minHeight)
 
-    let waterHeight=minHeight+heightDiff*0.2
-    let mountainHeight=minHeight+heightDiff*0.6
+    let waterHeight = minHeight + heightDiff * 0.2
+    let grassHeight = minHeight + heightDiff * 0.5
+    let mountainHeight = minHeight + heightDiff * 0.75
 
-    console.log("min:",minHeight)
-    console.log("max:",maxHeight)
-    console.log("diff:",heightDiff)
-    console.log("water:",waterHeight)
-    console.log("MOUNTAIN:",mountainHeight)
+    console.log("min:", minHeight)
+    console.log("max:", maxHeight)
+    console.log("diff:", heightDiff)
+    console.log("water:", waterHeight)
+    console.log("MOUNTAIN:", mountainHeight)
 
+    let min = 0
+    for (let x = 0; x < vertices.length; x += 3) {
 
-    for (let x = 0; x < size - 1; x++) {
-        for (let y = 0; y < size - 1; y++) {
-
-
-            colors[(x * size + y) * 18 + 0] = getColorForHeight(points[x][y].z).r
-            colors[(x * size + y) * 18 + 1] = getColorForHeight(points[x][y].z).g
-            colors[(x * size + y) * 18 + 2] = getColorForHeight(points[x][y].z).b
-
-            colors[(x * size + y) * 18 + 3] = getColorForHeight(points[x + 1][y].z).r
-            colors[(x * size + y) * 18 + 4] = getColorForHeight(points[x + 1][y].z).g
-            colors[(x * size + y) * 18 + 5] = getColorForHeight(points[x + 1][y].z).b
-
-            colors[(x * size + y) * 18 + 6] = getColorForHeight(points[x][y + 1].z).r
-            colors[(x * size + y) * 18 + 7] = getColorForHeight(points[x][y + 1].z).g
-            colors[(x * size + y) * 18 + 8] = getColorForHeight(points[x][y + 1].z).b
-
-
-            colors[(x * size + y) * 18 + 9] = getColorForHeight(points[x + 1][y].z).r
-            colors[(x * size + y) * 18 + 10] = getColorForHeight(points[x + 1][y].z).g
-            colors[(x * size + y) * 18 + 11] = getColorForHeight(points[x + 1][y].z).b
-
-            colors[(x * size + y) * 18 + 12] = getColorForHeight(points[x + 1][y + 1].z).r
-            colors[(x * size + y) * 18 + 13] = getColorForHeight(points[x + 1][y + 1].z).g
-            colors[(x * size + y) * 18 + 14] = getColorForHeight(points[x + 1][y + 1].z).b
-
-            colors[(x * size + y) * 18 + 15] = getColorForHeight(points[x][y + 1].z).r
-            colors[(x * size + y) * 18 + 16] = getColorForHeight(points[x][y + 1].z).g
-            colors[(x * size + y) * 18 + 17] = getColorForHeight(points[x][y + 1].z).b
+        let y = vertices[x + 1]
+        if (y < min) {
+            min = y
         }
-    }
+        colors[x] = getColorForHeight(y).r
+        colors[x + 1] = getColorForHeight(y).g
+        colors[x + 2] = getColorForHeight(y).b
 
+
+    }
+    console.log("min:  ", min.toString())
     return colors
 }
+
 
 function erode(points, size, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier) {
 
@@ -187,12 +183,12 @@ function erode(points, size, iterations, scaleMultiplier, erosionMultiplier, dep
             }
         }
 
-        for (var x = 1; x < size - 2; x++) {
-            for (var y = 1; y < size - 2; y++) {
+        for (let x = 1; x < size - 2; x++) {
+            for (let y = 1; y < size - 2; y++) {
                 points[x][y].water += points[x][y].newWater;
                 points[x][y].newWater = 0;
 
-                var oldZ = points[x][y].z;
+                let oldZ = points[x][y].z;
                 points[x][y].z += (-(points[x][y].down - 0.005 / scale) * points[x][y].water) * erosion + points[x][y].water * deposition;
                 points[x][y].erosion = oldZ - points[x][y].z;
 
@@ -203,8 +199,8 @@ function erode(points, size, iterations, scaleMultiplier, erosionMultiplier, dep
         }
     }
 
-    for (var x = 0; x < size; x++) {
-        for (var y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+        for (let y = 0; y < size; y++) {
             points[x][y].z -= 0.2;
         }
     }
@@ -215,7 +211,7 @@ function erode(points, size, iterations, scaleMultiplier, erosionMultiplier, dep
 
 function getNoise(x, y, res) {
 
-    var lightness = (noise.simplex2(x / res, y / res));
+    let lightness = (noise.simplex2(x / res, y / res));
     res /= 2;
     lightness += (noise.simplex2(x / res, y / res)) * 0.5;
     res /= 2;
@@ -235,10 +231,10 @@ function getNoise(x, y, res) {
 }
 
 function buildMeshFromPoints(points, size) {
-    var mesh = new Float32Array(Math.pow(size - 1, 2) * 18);
+    let mesh = new Float32Array(Math.pow(size - 1, 2) * 18);
 
-    for (var x = 0; x < size - 1; x++) {
-        for (var y = 0; y < size - 1; y++) {
+    for (let x = 0; x < size - 1; x++) {
+        for (let y = 0; y < size - 1; y++) {
             mesh[(x * size + y) * 18 + 0] = points[x][y].y;
             mesh[(x * size + y) * 18 + 1] = points[x][y].z;
             mesh[(x * size + y) * 18 + 2] = points[x][y].x;
@@ -261,7 +257,7 @@ function buildMeshFromPoints(points, size) {
             mesh[(x * size + y) * 18 + 14] = points[x + 1][y + 1].x;
 
             mesh[(x * size + y) * 18 + 15] = points[x][y + 1].y;
-            mesh[(x * size + y) * 18 + 16] = points[x][y + 1].z;  
+            mesh[(x * size + y) * 18 + 16] = points[x][y + 1].z;
             mesh[(x * size + y) * 18 + 17] = points[x][y + 1].x;
         }
     }
