@@ -1,5 +1,8 @@
-import React, {useRef} from 'react';
-import { useFrame} from 'react-three-fiber'
+import React, {useRef, useState} from 'react';
+import {useFrame, useUpdate} from 'react-three-fiber'
+import {usePlane} from "use-cannon"
+import {generateTerrain} from "../lib/terrainGeneration";
+import {BufferGeometryLoader} from "three";
 
 
 export default function Ground({
@@ -60,13 +63,17 @@ export default function Ground({
     }, [])
 
 
-    useFrame(() => {
-    })
     return (
         <mesh
-            ref={mesh}>
-            <planeBufferGeometry args={[data.x, data.y, 1]}  />
-            <meshPhongMaterial attach="material" color={0xf95b3c}/>
+            ref={mesh} scale={[worldSizeScale, worldSizeScale, worldSizeScale]}>
+            <bufferGeometry/>
+            <meshPhongMaterial
+                wireframe={false}
+                vertexColors={true}
+                flatShading={true}
+            />
+
         </mesh>
     )
 }
+

@@ -28,6 +28,9 @@ function Sidebar({x, setX, y, setY}) {
                         value={x}
                         onChange={changeEvent => setX(changeEvent.target.value)}
                         tooltipPlacement="top"
+                        min={0}
+                        max={1000}
+                        step={10}
                     />
                 </Nav.Item>
                 <Nav.Item className="sliderDiv">
@@ -36,6 +39,9 @@ function Sidebar({x, setX, y, setY}) {
                         value={y}
                         onChange={changeEvent => setY(changeEvent.target.value)}
                         tooltipPlacement="top"
+                        min={0}
+                        max={1000}
+                        step={10}
                     />
                 </Nav.Item>
                 <Nav.Item>
