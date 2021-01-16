@@ -15,18 +15,15 @@ export default function Ground({
                                    worldSizeScale
                                }) {
 
-    // let data = generateHeight(worldWidth, worldDepth);
-    //
-    // let texture = new CanvasTexture(generateTexture(data, worldWidth, worldDepth));
-    // texture.wrapS = ClampToEdgeWrapping;
-    // texture.wrapT = ClampToEdgeWrapping;
+
+
 
 
     const mesh = useUpdate(({geometry}) => {
 
         const loader = new BufferGeometryLoader();
 
-// load a resource
+
         let loadedGeometry = loader.load(
             '../data/defaultGeometry2.json',
             function (geometry) {
