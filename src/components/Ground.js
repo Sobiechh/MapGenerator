@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useFrame, useUpdate} from 'react-three-fiber'
 import {usePlane} from "use-cannon"
 import {generateTerrain} from "../lib/terrainGeneration";
-import {BufferGeometryLoader} from "three";
+import {BufferGeometryLoader, Vector3} from "three";
 
 
 export default function Ground({
@@ -12,11 +12,10 @@ export default function Ground({
                                    erosionMultiplier,
                                    depositionMultiplier,
                                    evaporationMultiplier,
-                                   worldSizeScale
+                                   worldSizeScale,
+                                   calculateWaterCallback,
+                                   calculateGroundHeightCallBack
                                }) {
-
-
-
 
 
     const mesh = useUpdate(({geometry}) => {
@@ -37,7 +36,7 @@ export default function Ground({
             }
         );
         if (loadedGeometry == null) {
-            generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier)
+            generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier, calculateWaterCallback)
         } else {
             geometry = loadedGeometry
         }
@@ -45,12 +44,13 @@ export default function Ground({
 
         geometry.attributes.color.needsUpdate = true
         geometry.needsUpdate = true
+
     }, [])
 
 
     return (
         <mesh
-            ref={mesh} scale={[worldSizeScale, worldSizeScale, worldSizeScale]}>
+            ref={mesh} scale={[worldSizeScale, worldSizeScale, worldSizeScale]} position={new Vector3(0, 0 , 0)}>
             <bufferGeometry/>
             <meshPhongMaterial
                 wireframe={false}

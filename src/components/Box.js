@@ -1,23 +1,16 @@
 import React, {useRef} from 'react';
-import { useFrame} from 'react-three-fiber'
-import { useBox} from "use-cannon"
+import {BackSide, DoubleSide} from "three";
 
 
-export default function Box() {
-    
-    const [ref,api] = useBox(() => ({mass: 0.1, position: [0,2,0]}))
+export default function Box({scale}) {
 
-    useFrame(() => {
-    })
+    let size=2*scale - 0.008
     return (
-        <mesh onClick={() => {
-            api.velocity.set(0, 2, 0);
-        }} ref={ref} position={[0,2,0]}
-            >
+        <mesh>
 
-            <boxBufferGeometry args={[0.1, 0.1, 0.1]} />
-            <meshLambertMaterial attach="material" color="hotpink"/>
-            
+            <boxBufferGeometry args={[size, size, size]}/>
+            <meshPhongMaterial side={BackSide} attach="material"  color="white"/>
+
         </mesh>
     )
 }

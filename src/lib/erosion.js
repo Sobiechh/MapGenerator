@@ -2,7 +2,7 @@ import {noise} from "./perlin"
 import calculateNormals from "./normals"
 import {BufferAttribute} from "three";
 
-export default function generate(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier) {
+export default function generate(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier,calculateWaterCallback) {
     noise.seed(Math.random())
 
 
@@ -34,16 +34,17 @@ export default function generate(geometry, pointsSize, iterations, scaleMultipli
 
     let vertices = buildMeshFromPoints(points, size);
     let normals = calculateNormals(vertices, points, size);
-    let colors = colorVertices(vertices);
+    let colors = colorVertices(vertices,calculateWaterCallback);
 
     geometry.attributes.position = new BufferAttribute(vertices, 3);
     geometry.attributes.normal = new BufferAttribute(normals, 3);
     geometry.attributes.color = new BufferAttribute(colors, 3);
 
 
+
 }
 
-function colorVertices(vertices) {
+function colorVertices(vertices,calculateWaterCallback) {
     function getColorForHeight(h) {
         let height = h
 
@@ -88,7 +89,7 @@ function colorVertices(vertices) {
             }
 
         })
-        console.log(array)
+        //console.log(array)
         return array
     }
 
@@ -122,26 +123,26 @@ function colorVertices(vertices) {
     let grassHeight = minHeight + heightDiff * 0.5
     let mountainHeight = minHeight + heightDiff * 0.75
 
+
+    calculateWaterCallback( waterHeight - heightDiff*0.751 )
     console.log("min:", minHeight)
     console.log("max:", maxHeight)
     console.log("diff:", heightDiff)
     console.log("water:", waterHeight)
     console.log("MOUNTAIN:", mountainHeight)
 
-    let min = 0
+
     for (let x = 0; x < vertices.length; x += 3) {
 
         let y = vertices[x + 1]
-        if (y < min) {
-            min = y
-        }
+
         colors[x] = getColorForHeight(y).r
         colors[x + 1] = getColorForHeight(y).g
         colors[x + 2] = getColorForHeight(y).b
 
 
     }
-    console.log("min:  ", min.toString())
+
     return colors
 }
 
