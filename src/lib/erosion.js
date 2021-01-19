@@ -119,7 +119,7 @@ function colorVertices(vertices,calculateWaterCallback) {
     let mountainHeight = minHeight + heightDiff * 0.75
 
 
-    calculateWaterCallback( waterHeight - heightDiff*0.751 )
+    calculateWaterCallback( waterHeight  )
     console.log("min:", minHeight)
     console.log("max:", maxHeight)
     console.log("diff:", heightDiff)

@@ -44,14 +44,14 @@ export default function Terrain({   pointSizeArg,
             }}>
         >
 
-            <spotLight position={[0, 2, -4]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
+            <spotLight position={[0, 2*worldSizeScale, -4*worldSizeScale]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
 
             <pointLight
                 visible={true}
                 intensity={0.6}
                 decay={2}
                 distance={5}
-                position={[0, 0.5, -1]}
+                position={[0, 0.5*worldSizeScale, -1*worldSizeScale]}
                 color={0xffcc77}
                 castShadow={true}
             />

@@ -3,9 +3,9 @@ import Terrain from "./Terrain";
 import Sidebar from '../components/Sidebar';
 
 function Home() {    
-    const [pointSize, setPointSize] = useState(512);
-    const [iterations, setIterations] = useState(300);
-    const [scaleMultiplier, setScaleMultiplier] = useState(4);
+    const [pointSize, setPointSize] = useState(256);
+    const [iterations, setIterations] = useState(200);
+    const [scaleMultiplier, setScaleMultiplier] = useState(1);
     const [erosionMultiplier, setErosionMultiplier] = useState(1);
     const [depositionMultiplier, setDepositionMultiplier] = useState(1);
     const [evaporationMultiplier, setEvaporationMultiplier] = useState(1);
