@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {Canvas, extend, useFrame} from 'react-three-fiber'
+import * as THREE from 'three'
 import Ground from "../components/Ground";
 import WorldBox from "../components/WorldBox";
 import CameraControls from "../components/CameraControls"
@@ -9,8 +10,23 @@ import {blue} from "@material-ui/core/colors";
 import WaterPlane from "../components/WaterPlane";
 import {ACESFilmicToneMapping, Color, LinearToneMapping} from "three";
 
+export default function Terrain({   pointSizeArg,
+                                    iterationsArg,
+                                    erosionMultiplierArg,
+                                    scaleMultiplierArg,
+                                    evaporationMultiplierArg,
+                                    depositionMultiplierArg,
+                                    worldSizeScaleArg,
+                                    buttonGenerate
+}){
+    var pointsSize = pointSizeArg/2;//256 // wielkość mapy przed skalowaniem jej ( czyli tak jakby jakość erozji)
+    var iterations = iterationsArg; //300 ilość iteracji erozji
+    var erosionMultiplier = erosionMultiplierArg;
+    var scaleMultiplier = scaleMultiplierArg;       // wszystkie multiplier - domyślnie 1 - przedziały od 1 do powiedzmy 10 w sliderach ale w sumie 10 to przesada
+    var evaporationMultiplier = evaporationMultiplierArg;
+    var depositionMultiplier = depositionMultiplierArg;
+    var worldSizeScale = worldSizeScaleArg; // skala wielkości terenu (wielkość skalowania np x4) (tutaj slider nie schodzący poniżej wartości 1)
 
-export default function Terrain() {
     const [WaterHeight, setWaterHeight] = useState(0);
     const [GroundHeight, setGroundHeight] = useState(0);
 
@@ -21,21 +37,10 @@ export default function Terrain() {
         setGroundHeight(groundLVL)
     }
 
-    var pointsSize = 512 / 1;//256 // wielkość mapy przed skalowaniem jej ( czyli tak jakby jakość erozji)
-    var iterations = 100; //300 ilość iteracji erozji
-    var scaleMultiplier = 1;       // wszystkie multiplier - domyślnie 1 - przedziały od 1 do powiedzmy 10 w sliderach ale w sumie 10 to przesada
-    var erosionMultiplier = 1;
-    var depositionMultiplier = 1;
-    var evaporationMultiplier = 1;
-    var worldSizeScale = 2; // skala wielkości terenu (wielkość skalowania np x4) (tutaj slider nie schodzący poniżej wartości 1)
-
-
     return (///x,y,z    - z głebia
         <Canvas
             camera={{position: [0, 0, 0], fov: 50 }}
             onCreated={({ gl }) => {
-
-
             }}>
         >
 
@@ -54,13 +59,18 @@ export default function Terrain() {
             <Stars/>
             <ambientLight intensity={0.01}/>
             <Physics>
-
                 <WorldBox scale={worldSizeScale}/>
-                <Ground pointsSize={pointsSize} iterations={iterations} scaleMultiplier={scaleMultiplier}
-                        depositionMultiplier={depositionMultiplier}
-                        erosionMultiplier={erosionMultiplier} evaporationMultiplier={evaporationMultiplier}
-                        worldSizeScale={worldSizeScale} calculateWaterCallback={calculateWaterCallback}
-                        calculateGroundHeightCallBack={calculateGroundHeightCallBack}
+                <Ground
+                    pointsSize={pointsSize}
+                    iterations={iterations}
+                    scaleMultiplier={scaleMultiplier}
+                    depositionMultiplier={depositionMultiplier}
+                    erosionMultiplier={erosionMultiplier}
+                    evaporationMultiplier={evaporationMultiplier}
+                    worldSizeScale={worldSizeScale}
+                    buttonGenerate={buttonGenerate}
+                    calculateWaterCallback={calculateWaterCallback}
+                    calculateGroundHeightCallBack={calculateGroundHeightCallBack}
                 />
                 <WaterPlane scale={worldSizeScale} waterHeight={WaterHeight}/>
                 <CameraControls/>
