@@ -44,7 +44,7 @@ export default function Terrain({   pointSizeArg,
             }}>
         >
 
-            <spotLight position={[0, 2, -3]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
+            <spotLight position={[0, 2, -4]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
 
             <pointLight
                 visible={true}
