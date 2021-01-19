@@ -1,6 +1,5 @@
-import React, {useRef, useState} from 'react';
-import {useFrame, useUpdate} from 'react-three-fiber'
-import {usePlane} from "use-cannon"
+import React from 'react';
+import {useUpdate} from 'react-three-fiber'
 import {generateTerrain} from "../lib/terrainGeneration";
 import {BufferGeometryLoader, Vector3} from "three";
 
@@ -14,39 +13,17 @@ export default function Ground({
                                    evaporationMultiplier,
                                    worldSizeScale,
                                    calculateWaterCallback,
-                                   calculateGroundHeightCallBack
+                                   calculateGroundHeightCallBack,
+                                   buttonGenerate
                                }) {
 
 
     const mesh = useUpdate(({geometry}) => {
-
-        const loader = new BufferGeometryLoader();
-
-
-        let loadedGeometry = loader.load(
-            '../data/defaultGeometry2.json',
-            function (geometry) {
-                return geometry;
-            },
-            function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-            },
-            function (err) {
-                console.log('An error happened');
-            }
-        );
-        if (loadedGeometry == null) {
-            generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier, calculateWaterCallback)
-        } else {
-            geometry = loadedGeometry
-        }
-
+        generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier)
 
         geometry.attributes.color.needsUpdate = true
         geometry.needsUpdate = true
-
-    }, [])
-
+    }, [buttonGenerate])
 
     return (
         <mesh
@@ -57,8 +34,6 @@ export default function Ground({
                 vertexColors={true}
                 flatShading={true}
             />
-
         </mesh>
     )
 }
-

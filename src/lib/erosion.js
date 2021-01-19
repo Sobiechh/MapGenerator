@@ -84,7 +84,6 @@ function colorVertices(vertices,calculateWaterCallback) {
                 return
             }
             if (index % 3 === 0) {
-
                 array.push(vertices[index - 2])
             }
 
@@ -112,9 +111,8 @@ function colorVertices(vertices,calculateWaterCallback) {
         return min;
     }
 
-
     let colors = new Float32Array(vertices.length);
-    let heightArray=getYs()
+    let heightArray = getYs()
     let minHeight = getMin(heightArray)
     let maxHeight = getMax(heightArray)
     let heightDiff = Math.abs(maxHeight - minHeight)
