@@ -2,7 +2,7 @@ import {noise} from "./perlin"
 import calculateNormals from "./normals"
 import {BufferAttribute} from "three";
 
-export default function generate(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier,calculateWaterCallback) {
+export default function generate(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier, calculateWaterCallback) {
     noise.seed(Math.random())
 
 
@@ -39,9 +39,6 @@ export default function generate(geometry, pointsSize, iterations, scaleMultipli
     geometry.attributes.position = new BufferAttribute(vertices, 3);
     geometry.attributes.normal = new BufferAttribute(normals, 3);
     geometry.attributes.color = new BufferAttribute(colors, 3);
-
-
-
 }
 
 function colorVertices(vertices,calculateWaterCallback) {

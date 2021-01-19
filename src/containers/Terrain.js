@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react';
 import {Canvas, extend, useFrame} from 'react-three-fiber'
-import React, { useEffect,  Suspense} from 'react';
 import * as THREE from 'three'
 import Ground from "../components/Ground";
 import Box from "../components/Box";
@@ -67,6 +66,8 @@ export default function Terrain({   pointSizeArg,
                     evaporationMultiplier={evaporationMultiplier}
                     worldSizeScale={worldSizeScale}
                     buttonGenerate={buttonGenerate}
+                    calculateWaterCallback={calculateWaterCallback}
+                    calculateGroundHeightCallBack={calculateGroundHeightCallBack}
                 />
                 <WaterPlane scale={worldSizeScale} waterHeight={WaterHeight}/>
                 <CameraControls/>

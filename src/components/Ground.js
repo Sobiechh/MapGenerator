@@ -19,7 +19,7 @@ export default function Ground({
 
 
     const mesh = useUpdate(({geometry}) => {
-        generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier)
+        generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier, calculateWaterCallback, calculateGroundHeightCallBack)
 
         geometry.attributes.color.needsUpdate = true
         geometry.needsUpdate = true
