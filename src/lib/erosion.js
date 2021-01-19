@@ -51,9 +51,9 @@ function colorVertices(vertices,calculateWaterCallback) {
         if (height < waterHeight) {
 
             return {
-                r: 0.01,
-                g: 0.01,
-                b: 0.90
+                r: 0.3,
+                g: 0.1,
+                b: 0.00
             }
         } else if (height < grassHeight) {
             return {

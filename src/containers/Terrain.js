@@ -1,13 +1,13 @@
 import React, {useRef, useState} from 'react';
 import {Canvas, extend, useFrame} from 'react-three-fiber'
 import Ground from "../components/Ground";
-import Box from "../components/Box";
+import WorldBox from "../components/WorldBox";
 import CameraControls from "../components/CameraControls"
 import {Stars} from '@react-three/drei'
 import {Physics} from "use-cannon"
 import {blue} from "@material-ui/core/colors";
 import WaterPlane from "../components/WaterPlane";
-import {ACESFilmicToneMapping, LinearToneMapping} from "three";
+import {ACESFilmicToneMapping, Color, LinearToneMapping} from "three";
 
 
 export default function Terrain() {
@@ -21,8 +21,8 @@ export default function Terrain() {
         setGroundHeight(groundLVL)
     }
 
-    var pointsSize = 512 / 4;//256 // wielkość mapy przed skalowaniem jej ( czyli tak jakby jakość erozji)
-    var iterations = 30; //300 ilość iteracji erozji
+    var pointsSize = 512 / 1;//256 // wielkość mapy przed skalowaniem jej ( czyli tak jakby jakość erozji)
+    var iterations = 100; //300 ilość iteracji erozji
     var scaleMultiplier = 1;       // wszystkie multiplier - domyślnie 1 - przedziały od 1 do powiedzmy 10 w sliderach ale w sumie 10 to przesada
     var erosionMultiplier = 1;
     var depositionMultiplier = 1;
@@ -39,22 +39,23 @@ export default function Terrain() {
             }}>
         >
 
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1}/>
+            <spotLight position={[0, 2, -3]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
+
             <pointLight
-                intensity={1.9}
-                position={[-6, 3, -6]}
+                visible={true}
+                intensity={0.6}
+                decay={2}
+                distance={5}
+                position={[0, 0.5, -1]}
                 color={0xffcc77}
+                castShadow={true}
             />
-            <pointLight
-                intensity={1.9}
-                position={[6, 3, 6]}
-                color={0xffcc77}
-            />
+
             <Stars/>
-            <ambientLight intensity={0.1}/>
+            <ambientLight intensity={0.01}/>
             <Physics>
 
-                <Box scale={worldSizeScale}/>
+                <WorldBox scale={worldSizeScale}/>
                 <Ground pointsSize={pointsSize} iterations={iterations} scaleMultiplier={scaleMultiplier}
                         depositionMultiplier={depositionMultiplier}
                         erosionMultiplier={erosionMultiplier} evaporationMultiplier={evaporationMultiplier}

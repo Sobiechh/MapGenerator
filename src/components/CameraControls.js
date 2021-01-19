@@ -1,15 +1,15 @@
 
 import {extend, useFrame, useThree} from "react-three-fiber";
 import React, { useRef } from "react";
-import {FlyControls} from "three/examples/jsm/controls/FlyControls";
+import {FirstPersonControls} from "three/examples/jsm/controls/FirstPersonControls";
 
 
 
 
-extend({ FlyControls })
+extend({ FirstPersonControls })
 export default function CameraControls() {
     const { camera,gl:{domElement} } = useThree()
-    const ref = useRef((controls)=> console.log("eeeeeeeee",controls))
+    const ref = useRef()
     useFrame((state, delta) => ref.current.update(delta))
-    return <flyControls ref={ref} args={[camera,domElement]}  movementSpeed={1.5} rollSpeed={0.4} dragToLook={false}/>
+    return <firstPersonControls ref={ref} args={[camera,domElement]}  movementSpeed={1} lookSpeed={0.3}  />
 }
