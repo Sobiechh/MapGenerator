@@ -42,7 +42,6 @@ export default function Terrain({   pointSizeArg,
             camera={{position: [0, 0, 0], fov: 50 }}
             onCreated={({ gl }) => {
             }}>
-        >
 
             <spotLight position={[0, 2*worldSizeScale, -4*worldSizeScale]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
 
