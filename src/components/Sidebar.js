@@ -24,6 +24,8 @@ function Sidebar({
                     setEvaporationMultiplier,
                     worldSizeScale,
                     setWorldSizeScale,
+                    buttonGenerate,
+                    setButtonGenerate
 }) {
     const [sidebar, setSidebar] = useState(false);
 
@@ -43,7 +45,7 @@ function Sidebar({
                         value={pointSize}
                         onChange={changeEvent => setPointSize(changeEvent.target.value)}
                         tooltipPlacement="top"
-                        min={0}
+                        min={250}
                         max={1000}
                         step={10}
                     />
@@ -54,21 +56,10 @@ function Sidebar({
                         value={iterations}
                         onChange={changeEvent => setIterations(changeEvent.target.value)}
                         tooltipPlacement="top"
-                        min={0}
-                        max={1000}
+                        min={200}
+                        max={400}
                         step={10}
                     />
-                </Nav.Item>
-                <Nav.Item className="sliderDiv">
-                    <h3> World Size Scale </h3>
-                        <RangeSlider
-                            value={worldSizeScale}
-                            onChange={changeEvent => setWorldSizeScale(changeEvent.target.value)}
-                            tooltipPlacement="top"
-                            min={1}
-                            max={10}
-                            step={0.2}
-                        />
                 </Nav.Item>
                 <Nav.Item className="sliderDiv">
                     <h3> Scale Multiplier </h3>
@@ -87,20 +78,9 @@ function Sidebar({
                             value={erosionMultiplier}
                             onChange={changeEvent => setErosionMultiplier(changeEvent.target.value)}
                             tooltipPlacement="top"
-                            min={1}
-                            max={10}
-                            step={0.2}
-                        />
-                </Nav.Item>
-                <Nav.Item className="sliderDiv">
-                    <h3> Deposition Multiplier </h3>
-                        <RangeSlider
-                            value={depositionMultiplier}
-                            onChange={changeEvent => setDepositionMultiplier(changeEvent.target.value)}
-                            tooltipPlacement="top"
-                            min={1}
-                            max={10}
-                            step={0.2}
+                            min={0.1}
+                            max={1}
+                            step={0.1}
                         />
                 </Nav.Item>
                 <Nav.Item className="sliderDiv">
@@ -109,10 +89,36 @@ function Sidebar({
                             value={evaporationMultiplier}
                             onChange={changeEvent => setEvaporationMultiplier(changeEvent.target.value)}
                             tooltipPlacement="top"
+                            min={0.1}
+                            max={1}
+                            step={0.1}
+                        />
+                </Nav.Item>
+                <Nav.Item className="sliderDiv">
+                    <h3> Deposition Multiplier </h3>
+                        <RangeSlider
+                            value={depositionMultiplier}
+                            onChange={changeEvent => setDepositionMultiplier(changeEvent.target.value)}
+                            tooltipPlacement="top"
+                            min={0.1}
+                            max={1}
+                            step={0.1}
+                        />
+                </Nav.Item>
+                <Nav.Item className="sliderDiv">
+                    <h3> World Size Scale </h3>
+                        <RangeSlider
+                            value={worldSizeScale}
+                            onChange={changeEvent => setWorldSizeScale(changeEvent.target.value)}
+                            tooltipPlacement="top"
                             min={1}
                             max={10}
                             step={0.2}
                         />
+                </Nav.Item>
+                <Nav.Item className="sliderDiv">
+                    <h3> Generate New World </h3>
+                        <input type="button" value="Generate" onClick={(event) => setButtonGenerate(!buttonGenerate)} />
                 </Nav.Item>
             </Nav>
         </Fragment>

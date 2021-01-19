@@ -110,9 +110,8 @@ function colorVertices(vertices) {
         return min;
     }
 
-
     let colors = new Float32Array(vertices.length);
-    let heightArray=getYs()
+    let heightArray = getYs()
     let minHeight = getMin(heightArray)
     let maxHeight = getMax(heightArray)
     let heightDiff = Math.abs(maxHeight - minHeight)

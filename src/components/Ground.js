@@ -1,9 +1,6 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {useFrame, useUpdate} from 'react-three-fiber'
-import {usePlane} from "use-cannon"
+import React from 'react';
+import {useUpdate} from 'react-three-fiber'
 import {generateTerrain} from "../lib/terrainGeneration";
-import {BufferGeometryLoader} from "three";
-
 
 export default function Ground({
                                    pointsSize,
@@ -12,19 +9,17 @@ export default function Ground({
                                    erosionMultiplier,
                                    depositionMultiplier,
                                    evaporationMultiplier,
-                                   worldSizeScale
+                                   worldSizeScale,
+                                   buttonGenerate
                                }) {
 
-    useEffect(() => {
-        console.log(pointsSize,worldSizeScale)
-    }, [pointsSize,worldSizeScale])
 
     const mesh = useUpdate(({geometry}) => {
         generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier)
 
         geometry.attributes.color.needsUpdate = true
         geometry.needsUpdate = true
-    }, [])
+    }, [buttonGenerate])
 
     return (
         <mesh
@@ -35,7 +30,6 @@ export default function Ground({
                 vertexColors={true}
                 flatShading={true}
             />
-
         </mesh>
     )
 }

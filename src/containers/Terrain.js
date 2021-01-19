@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,  Suspense} from 'react';
+import * as THREE from 'three'
 import {Canvas} from 'react-three-fiber'
 import Ground from "../components/Ground";
 import Box from "../components/Box";
@@ -12,7 +13,8 @@ export default function Terrain({   pointSizeArg,
                                     scaleMultiplierArg,
                                     evaporationMultiplierArg,
                                     depositionMultiplierArg,
-                                    worldSizeScaleArg
+                                    worldSizeScaleArg,
+                                    buttonGenerate
 }){
     var pointsSize = pointSizeArg/2;//256 // wielkość mapy przed skalowaniem jej ( czyli tak jakby jakość erozji)
     var iterations = iterationsArg; //300 ilość iteracji erozji
@@ -37,9 +39,8 @@ export default function Terrain({   pointSizeArg,
                 color={0xffcc77}
             />
             <Stars/>
-            <ambientLight intensity={0.1}/>
+            <ambientLight intensity={0.4}/>
             <Physics>
-                <Box/>
                 <Ground
                     pointsSize={pointsSize} 
                     iterations={iterations} 
@@ -48,6 +49,7 @@ export default function Terrain({   pointSizeArg,
                     erosionMultiplier={erosionMultiplier} 
                     evaporationMultiplier={evaporationMultiplier}
                     worldSizeScale={worldSizeScale}
+                    buttonGenerate={buttonGenerate}
                 />
             </Physics>
         </Canvas>
