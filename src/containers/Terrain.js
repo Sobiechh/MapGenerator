@@ -42,9 +42,7 @@ export default function Terrain({   pointSizeArg,
             camera={{position: [0, 0, 0], fov: 50 }}
             onCreated={({ gl }) => {}}
             >
-
             <spotLight position={[0, 2*worldSizeScale, -4*worldSizeScale]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
-
             <pointLight
                 visible={true}
                 intensity={0.6}
@@ -54,9 +52,8 @@ export default function Terrain({   pointSizeArg,
                 color={0xffcc77}
                 castShadow={true}
             />
-
             <Stars/>
-            <ambientLight intensity={0.2}/>
+            <ambientLight intensity={0.6}/>
             <Physics>
                 <WorldBox scale={worldSizeScale}/>
                 <Ground
