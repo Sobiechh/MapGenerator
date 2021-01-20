@@ -1,7 +1,7 @@
 import React from 'react';
 import {useUpdate} from 'react-three-fiber'
 import {generateTerrain} from "../lib/terrainGeneration";
-s
+import {BufferGeometryLoader, Vector3} from "three";
 
 
 export default function Ground({
