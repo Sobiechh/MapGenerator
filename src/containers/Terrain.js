@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {Suspense, useState} from 'react';
 import {Canvas, extend, useFrame} from 'react-three-fiber'
 import * as THREE from 'three'
 import Ground from "../components/Ground";
@@ -6,9 +6,9 @@ import WorldBox from "../components/WorldBox";
 import CameraControls from "../components/CameraControls"
 import {Stars} from '@react-three/drei'
 import {Physics} from "use-cannon"
-import {blue} from "@material-ui/core/colors";
+import Tree from "../components/Tree";
 import WaterPlane from "../components/WaterPlane";
-import {ACESFilmicToneMapping, Color, LinearToneMapping} from "three";
+import { AmbientLight } from 'three';
 
 export default function Terrain({   pointSizeArg,
                                     iterationsArg,
@@ -40,8 +40,8 @@ export default function Terrain({   pointSizeArg,
     return (///x,y,z    - z głebia
         <Canvas
             camera={{position: [0, 0, 0], fov: 50 }}
-            onCreated={({ gl }) => {
-            }}>
+            onCreated={({ gl }) => {}}
+            >
 
             <spotLight position={[0, 2*worldSizeScale, -4*worldSizeScale]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
 
@@ -56,7 +56,7 @@ export default function Terrain({   pointSizeArg,
             />
 
             <Stars/>
-            <ambientLight intensity={0.01}/>
+            <ambientLight intensity={0.2}/>
             <Physics>
                 <WorldBox scale={worldSizeScale}/>
                 <Ground
@@ -74,7 +74,10 @@ export default function Terrain({   pointSizeArg,
                 <WaterPlane scale={worldSizeScale} waterHeight={WaterHeight}/>
                 <CameraControls/>
             </Physics>
-
+            <ambientLight intensity={0.5}/>
+            <Suspense fallback={null}>
+                <Tree/>
+            </Suspense>
         </Canvas>
     )
 }
