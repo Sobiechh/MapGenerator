@@ -71,7 +71,6 @@ export default function Terrain({   pointSizeArg,
                 <WaterPlane scale={worldSizeScale} waterHeight={WaterHeight}/>
                 <CameraControls/>
             </Physics>
-            <ambientLight intensity={0.5}/>
             <Suspense fallback={null}>
                 <Tree/>
             </Suspense>
