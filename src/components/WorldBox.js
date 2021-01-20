@@ -25,12 +25,6 @@ export default function WorldBox({scale}) {
             <meshBasicMaterial side={BackSide} attachArray="material" map={skyboxNear} />
             <meshBasicMaterial side={BackSide} attachArray="material" map={skyboxFar} />
 
-
-
-
-
-
-
         </mesh>
     )
 }

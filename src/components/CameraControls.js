@@ -11,5 +11,5 @@ export default function CameraControls() {
     const { camera,gl:{domElement} } = useThree()
     const ref = useRef()
     useFrame((state, delta) => ref.current.update(delta))
-    return <flyControls ref={ref} args={[camera,domElement]} dragToLook={true}  movementSpeed={1.4} rollSpeed={0.8}  />
+    return <flyControls ref={ref} args={[camera,domElement]} dragToLook={true}  movementSpeed={4.4} rollSpeed={2}  />
 }
