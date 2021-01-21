@@ -32,7 +32,7 @@ function Home() {
                     buttonGenerate={buttonGenerate}
                     setButtonGenerate={setButtonGenerate}
                     />
-            <Terrain 
+            <Terrain
                     pointSizeArg={pointSize}
                     iterationsArg={iterations}
                     scaleMultiplierArg={scaleMultiplier}

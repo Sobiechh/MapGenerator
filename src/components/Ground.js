@@ -14,12 +14,13 @@ export default function Ground({
                                    worldSizeScale,
                                    calculateWaterCallback,
                                    calculateGroundHeightCallBack,
-                                   buttonGenerate
+                                   buttonGenerate,
+                                   getMapArray
                                }) {
 
 
     const mesh = useUpdate(({geometry}) => {
-        generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier, calculateWaterCallback, calculateGroundHeightCallBack)
+        generateTerrain(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier, calculateWaterCallback, calculateGroundHeightCallBack, getMapArray)
 
         geometry.attributes.color.needsUpdate = true
         geometry.needsUpdate = true

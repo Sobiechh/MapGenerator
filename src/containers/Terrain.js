@@ -1,5 +1,5 @@
-import React, {Suspense, useState} from 'react';
-import {Canvas, extend, useFrame} from 'react-three-fiber'
+import React, {Suspense, useState, useEffect} from 'react';
+import {Canvas, extend, useUpdate} from 'react-three-fiber'
 import * as THREE from 'three'
 import Ground from "../components/Ground";
 import WorldBox from "../components/WorldBox";
@@ -29,18 +29,31 @@ export default function Terrain({   pointSizeArg,
 
     const [WaterHeight, setWaterHeight] = useState(0);
     const [GroundHeight, setGroundHeight] = useState(0);
+    const [MapArray, setMapArray] = useState([]);
+    const [trees, setTrees] = useState([1])
+
+    useEffect(() => {
+        if(trees.length>51) setTrees([1])
+    }, [trees])
 
     let calculateWaterCallback = (waterLVL) => {
         setWaterHeight(waterLVL)
     }
+
     let calculateGroundHeightCallBack = (groundLVL) => {
         setGroundHeight(groundLVL)
     }
 
-    return (///x,y,z    - z głebia
+    let getMapArray = (mapArray) => {
+            setMapArray(mapArray)
+    }
+
+    console.log("Map array w terrain:", MapArray)
+    console.log("Drzwka", trees)
+    return (
         <Canvas
             camera={{position: [0, 0, 0], fov: 50 }}
-            onCreated={({ gl }) => {}}
+            onClick={() => start()}
             >
             <spotLight position={[0, 2*worldSizeScale, -4*worldSizeScale]} angle={0.8} penumbra={1} intensity={0.6}  visible={true}/>
             <pointLight
@@ -67,13 +80,56 @@ export default function Terrain({   pointSizeArg,
                     buttonGenerate={buttonGenerate}
                     calculateWaterCallback={calculateWaterCallback}
                     calculateGroundHeightCallBack={calculateGroundHeightCallBack}
+                    getMapArray={getMapArray}
                 />
                 <WaterPlane scale={worldSizeScale} waterHeight={WaterHeight}/>
                 <CameraControls/>
             </Physics>
             <Suspense fallback={null}>
-                <Tree/>
+                {
+                    trees.map((props) => (
+                        <Tree {...props} />
+                    ))
+                }
             </Suspense>
         </Canvas>
     )
+    
+    function start(){
+        if( trees.length === 0 ) return
+        
+        let newTrees = trees.map((props) => ({ ...props}))
+        
+        for (var i=0; i<50; i++){
+            generateNewTree(newTrees)
+            console.log("wykonano po raz", i)
+        }
+        
+        setTrees([...newTrees])
+    }
+
+    
+    
+    function generateNewTree(newTrees) {
+        const randomType = getRandomInt(3)
+        const coordinates = getRandomCoordinate()
+        
+        console.log("losowy typ", randomType)
+        
+        newTrees.push({ x: coordinates.x, y: coordinates.y, z: coordinates.z, scale: worldSizeScale, type: randomType})
+    }
+    
+
+    //random generators
+    function getRandomCoordinate(){
+        let ran = getRandomInt(30000)
+        let x = MapArray[0 + 3*ran]
+        let y = MapArray[1 + 3*ran]
+        let z = MapArray[2 + 3*ran]
+        
+        return {x,y,z}
+    }
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max))
+    }
 }
