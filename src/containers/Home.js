@@ -10,7 +10,8 @@ function Home() {
     const [depositionMultiplier, setDepositionMultiplier] = useState(1);
     const [evaporationMultiplier, setEvaporationMultiplier] = useState(1);
     const [worldSizeScale, setWorldSizeScale] = useState(3);
-    const [buttonGenerate, setButtonGenerate] = useState(true);
+    const [objectDensity, setObjectDensity] = useState(50)
+    const [buttonGenerate, setButtonGenerate] = useState(false);
 
     return (
         <div className = 'home'>
@@ -31,6 +32,8 @@ function Home() {
                     setWorldSizeScale={setWorldSizeScale}
                     buttonGenerate={buttonGenerate}
                     setButtonGenerate={setButtonGenerate}
+                    objectDensity={objectDensity}
+                    setObjectDensity={setObjectDensity}
                     />
             <Terrain
                     pointSizeArg={pointSize}
@@ -41,6 +44,7 @@ function Home() {
                     evaporationMultiplierArg={evaporationMultiplier}
                     worldSizeScaleArg={worldSizeScale}
                     buttonGenerate={buttonGenerate}
+                    objectDensityArg={objectDensity}
                     />
         </div>
     );

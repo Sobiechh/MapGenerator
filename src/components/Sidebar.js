@@ -25,7 +25,9 @@ function Sidebar({
                     worldSizeScale,
                     setWorldSizeScale,
                     buttonGenerate,
-                    setButtonGenerate
+                    setButtonGenerate,
+                    objectDensity,
+                    setObjectDensity
 }) {
     const [sidebar, setSidebar] = useState(false);
 
@@ -39,6 +41,17 @@ function Sidebar({
                 </IconContext.Provider>
                 </p>
             <Nav defaultActiveKey="/home" className={sidebar ? ['sidebar_hide','flex-column'] : ['sidebar_active','flex-column']}>
+                <Nav.Item className="sliderDiv">
+                    <h3> Objects density </h3>
+                    <RangeSlider
+                        value={objectDensity}
+                        onChange={changeEvent => setObjectDensity(changeEvent.target.value)}
+                        tooltipPlacement="top"
+                        min={50}
+                        max={200}
+                        step={10}
+                    />
+                </Nav.Item>
                 <Nav.Item className="sliderDiv">
                     <h3> Point Size </h3>
                     <RangeSlider

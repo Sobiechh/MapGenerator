@@ -197,7 +197,7 @@ export default function Tree(props) {
                     </group>
                 )
                 break;
-            case 1:
+            case 2:
                 return (
                     <group ref={group} {...props} dispose={null} scale={[0.0007, 0.0007, 0.0007]} position={new Vector3(props.x * props.scale, props.y * props.scale - 0.0004, props.z * props.scale)} >
                         <group position={[-54.03, 237.2, 169.76]} rotation={[-2.91, 0.36, 3.06]}>
@@ -543,7 +543,7 @@ export default function Tree(props) {
                     </group>
                 )
                 break;
-            case 2:
+            case 1:
                 return (
                     <group ref={group} {...props} dispose={null} rotation={[-2.82, -0.66, -2.94]} scale={[0.0007, 0.0007, 0.0007]} position={new Vector3(props.x * props.scale, props.y * props.scale - 0.0004, props.z * props.scale)} >
                             <mesh material={materials.leaf1} geometry={nodes.leafplanes_2_196_0_leaf1_0.geometry} />
@@ -621,7 +621,7 @@ export default function Tree(props) {
                 )
                 break;
             default:
-                console.log("Nie ma takiego dżewa")
+                console.log("Nie ma takiego drzewa")
         }
     }
 
