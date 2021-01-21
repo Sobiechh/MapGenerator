@@ -8,6 +8,7 @@ import {Stars} from '@react-three/drei'
 import {Physics} from "use-cannon"
 import Tree from "../components/Tree";
 import WaterPlane from "../components/WaterPlane";
+import Bush from '../components/Bush';
 
 export default function Terrain({   pointSizeArg,
                                     iterationsArg,
@@ -31,12 +32,15 @@ export default function Terrain({   pointSizeArg,
 
     const [WaterHeight, setWaterHeight] = useState(0);
     const [GroundHeight, setGroundHeight] = useState(0);
+    const [MounatinHeight, setMounatinHeight] = useState(0);
     const [MapArray, setMapArray] = useState([]);
     const [trees, setTrees] = useState([1])
+    const [bushes, setBushes] = useState([1])
 
 
     useEffect(() => {
         setTrees([1])
+        setBushes([1])
     }, [worldSizeScale])
 
     let calculateWaterCallback = (waterLVL) => {
@@ -46,7 +50,12 @@ export default function Terrain({   pointSizeArg,
     let calculateGroundHeightCallBack = (groundLVL) => {
         setGroundHeight(groundLVL)
     }
+    let calculateMountainHeightCallBack = (mountainLVL) => {
+        setMounatinHeight(mountainLVL)
+    }
 
+
+    console.log("WYSOKOSC GORY MAX", MounatinHeight)
     let getMapArray = (mapArray) => {
             setMapArray(mapArray)
     }
@@ -58,11 +67,12 @@ export default function Terrain({   pointSizeArg,
             
             if( trees.length === 0 || trees.length>objectDensityArg ){
                 setTrees([null])
+                setBushes([null])
                 sleep(5000).then(() => {
-                    start()
+                    startGenerate()
                   })
             }else{
-                start()
+                startGenerate()
             }
         }
     }
@@ -98,8 +108,8 @@ export default function Terrain({   pointSizeArg,
                     buttonGenerate={buttonGenerate}
                     calculateWaterCallback={calculateWaterCallback}
                     calculateGroundHeightCallBack={calculateGroundHeightCallBack}
+                    calculateMountainHeightCallBack={calculateMountainHeightCallBack}
                     getMapArray={getMapArray}
-                    start={start}
                 />
                 <WaterPlane scale={worldSizeScale} waterHeight={WaterHeight}/>
                 <CameraControls/>
@@ -110,38 +120,52 @@ export default function Terrain({   pointSizeArg,
                         <Tree {...props} />
                     ))
                 }
+                {
+                    bushes.map((props) => (
+                        <Bush {...props} />
+                    ))
+                }
             </Suspense>
         </Canvas>
     )
     
-    function start(){
+
+    //generate Models
+    function startGenerate(){
         if( MapArray.length>0){
 
-
             let newTrees = trees.map((props) => ({ ...props}))
+            let newBushes = bushes.map((props) => ({ ...props}))
             
             
-            for (var i=0; i<objectDensityArg; i++){
+            for (var i=0; i < objectDensityArg; i++){
+                generateNewBush(newBushes)
                 generateNewTree(newTrees)
             }
             
             setTrees([...newTrees])
-            
+            setBushes([...newBushes])
         }
     }
+    
 
-    
-    
+    //generators
     function generateNewTree(newTrees) {
         const randomType = getRandomInt(2)
-        const coordinates = getRandomCoordinate()
+        const coordinates = getCoordinate()
         
         newTrees.push({ x: coordinates.x, y: coordinates.y, z: coordinates.z, scale: worldSizeScale, type: randomType})
     }
+
+    function generateNewBush(newBushes) {
+        const coordinates = getCoordinate2()
+        
+        newBushes.push({ x: coordinates.x, y: coordinates.y, z: coordinates.z, scale: worldSizeScale, type: 1})
+    }
     
 
-    //random generators
-    function getRandomCoordinate(){
+    //get Trees coordinates
+    function getCoordinate(){
         let array = nestedList(MapArray)
         
         array = getArrayGroundHeight(array)
@@ -152,10 +176,25 @@ export default function Terrain({   pointSizeArg,
         
         return {x,y,z}
     }
+
+    function getCoordinate2(){
+        let array = nestedList(MapArray)
+        
+        array = getArrayMountainHeight(array)
+        let ran = getRandomInt(array.length)
+        let x = array[ran][0]
+        let y = array[ran][1]
+        let z = array[ran][2]
+        
+        return {x,y,z}
+    }
+
+    //random Int
     function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max))
     }
 
+    //nested list
     function nestedList(oldList){
         let i=0
         let newList=[]
@@ -176,7 +215,19 @@ export default function Terrain({   pointSizeArg,
             }
             i+=1
         }
+        return newList
+    }
 
+    //na brazowym tle
+    function getArrayMountainHeight(oldList){
+        let i = 0
+        let newList = []
+        while(i<oldList.length){
+            if(oldList[i][1] > WaterHeight && oldList[i][1] < MounatinHeight){
+                newList.push(oldList[i])
+            }
+            i+=1
+        }
         return newList
     }
 }

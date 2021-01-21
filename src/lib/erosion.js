@@ -2,7 +2,7 @@ import {noise} from "./perlin"
 import calculateNormals from "./normals"
 import {BufferAttribute} from "three";
 
-export default function generate(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier, calculateWaterCallback, calculateGroundHeightCallBack, getMapArray) {
+export default function generate(geometry, pointsSize, iterations, scaleMultiplier, erosionMultiplier, depositionMultiplier, evaporationMultiplier, calculateWaterCallback, calculateGroundHeightCallBack, calculateMountainHeightCallBack, getMapArray) {
     noise.seed(Math.random())
 
 
@@ -34,14 +34,14 @@ export default function generate(geometry, pointsSize, iterations, scaleMultipli
 
     let vertices = buildMeshFromPoints(points, size);
     let normals = calculateNormals(vertices, points, size);
-    let colors = colorVertices(vertices,calculateWaterCallback, calculateGroundHeightCallBack, getMapArray);
+    let colors = colorVertices(vertices,calculateWaterCallback, calculateGroundHeightCallBack, calculateMountainHeightCallBack, getMapArray);
 
     geometry.attributes.position = new BufferAttribute(vertices, 3);
     geometry.attributes.normal = new BufferAttribute(normals, 3);
     geometry.attributes.color = new BufferAttribute(colors, 3);
 }
 
-function colorVertices(vertices,calculateWaterCallback, calculateGroundHeightCallBack, getMapArray) {
+function colorVertices(vertices,calculateWaterCallback, calculateGroundHeightCallBack, calculateMountainHeightCallBack, getMapArray) {
     function getColorForHeight(h) {
         let height = h
 
@@ -122,6 +122,7 @@ function colorVertices(vertices,calculateWaterCallback, calculateGroundHeightCal
     getMapArray( vertices )
     calculateWaterCallback( waterHeight )
     calculateGroundHeightCallBack( grassHeight )
+    calculateMountainHeightCallBack( mountainHeight )
 
     console.log("min:", minHeight)
     console.log("max:", maxHeight)
