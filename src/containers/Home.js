@@ -2,14 +2,50 @@ import React, { useState } from 'react';
 import Terrain from "./Terrain";
 import Sidebar from '../components/Sidebar';
 
-function Home() {
-    const [x, setX ] = useState(0);
-    const [y, setY ] = useState(0);
+function Home() {    
+    const [pointSize, setPointSize] = useState(256);
+    const [iterations, setIterations] = useState(200);
+    const [scaleMultiplier, setScaleMultiplier] = useState(1);
+    const [erosionMultiplier, setErosionMultiplier] = useState(1);
+    const [depositionMultiplier, setDepositionMultiplier] = useState(1);
+    const [evaporationMultiplier, setEvaporationMultiplier] = useState(1);
+    const [worldSizeScale, setWorldSizeScale] = useState(3);
+    const [objectDensity, setObjectDensity] = useState(50)
+    const [buttonGenerate, setButtonGenerate] = useState(false);
 
     return (
         <div className = 'home'>
-            <Sidebar x={x} setX={setX} y={y} setY={setY} />
-            <Terrain x={x} y={y}/>
+            <Sidebar
+                    pointSize={pointSize}
+                    setPointSize={setPointSize}
+                    iterations={iterations}
+                    setIterations={setIterations}
+                    scaleMultiplier={scaleMultiplier}
+                    setScaleMultiplier={setScaleMultiplier}
+                    erosionMultiplier={erosionMultiplier}
+                    setErosionMultiplier={setErosionMultiplier}
+                    depositionMultiplier={depositionMultiplier}
+                    setDepositionMultiplier={setDepositionMultiplier}
+                    evaporationMultiplier={evaporationMultiplier}
+                    setEvaporationMultiplier={setEvaporationMultiplier}
+                    worldSizeScale={worldSizeScale}
+                    setWorldSizeScale={setWorldSizeScale}
+                    buttonGenerate={buttonGenerate}
+                    setButtonGenerate={setButtonGenerate}
+                    objectDensity={objectDensity}
+                    setObjectDensity={setObjectDensity}
+                    />
+            <Terrain
+                    pointSizeArg={pointSize}
+                    iterationsArg={iterations}
+                    scaleMultiplierArg={scaleMultiplier}
+                    erosionMultiplierArg={erosionMultiplier}
+                    depositionMultiplierArg={depositionMultiplier}
+                    evaporationMultiplierArg={evaporationMultiplier}
+                    worldSizeScaleArg={worldSizeScale}
+                    buttonGenerate={buttonGenerate}
+                    objectDensityArg={objectDensity}
+                    />
         </div>
     );
 }

@@ -4,13 +4,15 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.2",
+    "@react-three/drei": "^2.2.18",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.3.0",
     "bootstrap": "^4.5.3",
     "cannon": "^0.6.2",
-    "react": "^17.0.1",
-    "react-bootstrap": "^1.4.0",
+    "drei": "^2.2.17",
+    "react": "17.0.1",
+    "react-bootstrap": "^1.4.3",
     "react-bootstrap-range-slider": "^2.0.2",
     "react-bootstrap-sidebar": "0.0.1",
     "react-dom": "^17.0.1",
@@ -20,6 +22,7 @@
     "react-three": "^0.9.7",
     "react-three-fiber": "^5.3.10",
     "three": "^0.123.0",
+    "use-cannon": "^0.5.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -45,5 +48,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
